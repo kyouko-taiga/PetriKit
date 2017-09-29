@@ -5,7 +5,7 @@ public protocol PetriNet {
 
     associatedtype MarkingType
 
-    var places    : Set<PlaceType>      { get }
+    var places     : Set<PlaceType>      { get }
     var transitions: Set<TransitionType> { get }
 
     func simulate(steps: Int, from: MarkingType) -> MarkingType

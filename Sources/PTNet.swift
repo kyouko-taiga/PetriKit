@@ -3,6 +3,11 @@ public struct PTNet: PetriNet {
     public let places: Set<PTPlace>
     public let transitions: Set<PTTransition>
 
+    public init(places: Set<PTPlace>, transitions: Set<PTTransition>) {
+        self.places      = places
+        self.transitions = transitions
+    }
+
     public func simulate(steps: Int, from marking: PTMarking) -> PTMarking {
         var m = marking
 
@@ -50,7 +55,7 @@ extension PTPlace: CustomStringConvertible {
     public var description: String {
         return self.name
     }
-    
+
 }
 
 // ---------------------------------------------------------------------------
