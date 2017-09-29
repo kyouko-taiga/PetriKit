@@ -104,6 +104,15 @@ or stops prematurely if the simulation reaches a deadlock.
 
 The type `PTNet` comes with a special method `saveAsDot`
 that outputs the given P/T-net as a [Graphviz](http://www.graphviz.org/content/dot-language) file.
+Note that this will require you to import the Foundation library as well.
 
 ```swift
+import Foundation
+
+// ...
+
+try pn.saveAsDot(to: URL(fileURLWithPath: "pn.dot"), withMarking: [p0: 1, p1: 2])
 ```
+
+The above code will output the P/T-net `pn` with marking `[p0: 1, p1: 2]`
+to a file named `pn.dot`.
