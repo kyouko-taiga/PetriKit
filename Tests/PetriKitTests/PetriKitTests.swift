@@ -3,11 +3,11 @@ import XCTest
 
 class PetriKitTests: XCTestCase {
 
-    func testExample() {
-    }
+  func testExample() {
+  }
 
-    static var allTests = [
-        ("testExample", testExample),
-    ]
+  static var allTests = [
+    ("testExample", testExample),
+  ]
 
 }
