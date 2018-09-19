@@ -1,7 +1,6 @@
 import XCTest
 @testable import PetriKit
 
-
 class RandomTests: XCTestCase {
 
     func testRandint() {
@@ -58,5 +57,5 @@ class RandomTests: XCTestCase {
         ("testChoose"     , testChoose),
         ("testSample"     , testSample),
     ]
-    
+
 }

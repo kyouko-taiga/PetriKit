@@ -1,7 +1,6 @@
 import XCTest
 @testable import PetriKit
 
-
 class PTNetTests: XCTestCase {
 
     func testIsFireable() {
@@ -70,5 +69,5 @@ class PTNetTests: XCTestCase {
     static var allTests = [
         ("testIsFireable", testIsFireable),
     ]
-    
+
 }

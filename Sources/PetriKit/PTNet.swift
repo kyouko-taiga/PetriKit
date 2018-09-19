@@ -44,7 +44,7 @@ extension PTPlace: Hashable {
         return self.name.hashValue
     }
 
-    public static func ==(lhs: PTPlace, rhs: PTPlace) -> Bool {
+    public static func == (lhs: PTPlace, rhs: PTPlace) -> Bool {
         return lhs === rhs
     }
 
@@ -73,13 +73,7 @@ public struct PTTransition: Transition {
     }
 
     public func isFireable(from marking: PTMarking) -> Bool {
-        for arc in self.preconditions {
-            if marking[arc.place]! < arc.tokens {
-                return false
-            }
-        }
-
-        return true
+        return !(self.preconditions.contains { arc in marking[arc.place]! < arc.tokens })
     }
 
     public func fire(from marking: PTMarking) -> PTMarking? {

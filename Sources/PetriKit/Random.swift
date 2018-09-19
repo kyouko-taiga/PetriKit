@@ -84,8 +84,8 @@ public struct Random {
         Random.seed = Random.seed &+ 12345
         result <<= 10
         result ^= (Random.seed / 65536) % 1024
-        
+
         return Int(result)
     }
-    
+
 }

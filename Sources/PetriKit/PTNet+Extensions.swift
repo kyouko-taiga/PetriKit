@@ -1,6 +1,5 @@
 import Foundation
 
-
 extension PTNet {
 
     public func saveAsDot(to url: URL, withMarking: PTMarking? = nil) throws {
@@ -51,5 +50,5 @@ extension PTNet {
         output += "}\n"
         try output.write(to: url, atomically: true, encoding: String.Encoding.utf8)
     }
-    
+
 }
