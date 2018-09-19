@@ -68,6 +68,8 @@ class PTNetTests: XCTestCase {
 
   static var allTests = [
     ("testIsFireable", testIsFireable),
+    ("testFire"      , testFire),
+    ("testSimulate"  , testSimulate),
   ]
 
 }
