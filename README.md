@@ -25,15 +25,15 @@ Open the generated file `Package.swift` and edit its content as follows:
 import PackageDescription
 
 let package = Package(
-    name: "MyApp",
-    dependencies: [
-        .package(url: "https://github.com/kyouko-taiga/PetriKit.git", from: "1.0.0")
-    ],
-    targets: [
-        .target(
-            name: "MyApp",
-            dependencies: ["PetriKit"]),
-    ])
+  name: "MyApp",
+  dependencies: [
+    .package(url: "https://github.com/kyouko-taiga/PetriKit.git", from: "1.0.0")
+  ],
+  targets: [
+    .target(
+      name: "MyApp",
+      dependencies: ["PetriKit"]),
+  ])
 ```
 
 This will let you import PetriKit in your sources.
@@ -65,13 +65,13 @@ let p0 = PTPlace(named: "p0")
 let p1 = PTPlace(named: "p1")
 
 let t0 = PTTransition(
-    named         : "t0",
-    preconditions : [PTArc(place: p0)],
-    postconditions: [PTArc(place: p1)])
+  named         : "t0",
+  preconditions : [PTArc(place: p0)],
+  postconditions: [PTArc(place: p1)])
 let t1 = PTTransition(
-    named         : "t1",
-    preconditions : [PTArc(place: p1)],
-    postconditions: [PTArc(place: p0)])
+  named         : "t1",
+  preconditions : [PTArc(place: p1)],
+  postconditions: [PTArc(place: p0)])
 
 let pn = PTNet(places: [p0, p1], transitions: [t0, t1])
 ```
