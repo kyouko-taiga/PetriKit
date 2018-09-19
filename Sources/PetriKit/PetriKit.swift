@@ -1,11 +1,12 @@
 public protocol PetriNet {
 
-  associatedtype MarkingType
-  associatedtype PlaceType: Hashable
-  associatedtype TransitionType: Transition where TransitionType.MarkingType == MarkingType
+  associatedtype Transition: TransitionProtocol
 
-  var places     : Set<PlaceType>      { get }
-  var transitions: Set<TransitionType> { get }
+  typealias Place = Transition.Place
+  typealias PlaceContent = Transition.PlaceContent
+  typealias MarkingType = Transition.MarkingType
+
+  var transitions: Set<Transition> { get }
 
   func simulate(steps: Int, from: MarkingType) -> MarkingType
 
@@ -31,15 +32,30 @@ extension PetriNet {
 
 // ---------------------------------------------------------------------------
 
-public protocol Transition: Hashable {
+public protocol TransitionProtocol: Hashable {
 
-  associatedtype ArcType: Hashable
-  associatedtype MarkingType
+  associatedtype Arc: ArcProtocol
+  associatedtype PlaceContent
 
-  var preconditions : Set<ArcType> { get }
-  var postconditions: Set<ArcType> { get }
+  typealias Place = Arc.Place
+  typealias MarkingType = Marking<Place, PlaceContent>
 
-  func isFireable(from marking: MarkingType) -> Bool
-  func fire(from marking: MarkingType) -> MarkingType?
+  var preconditions : Set<Arc> { get }
+  var postconditions: Set<Arc> { get }
+
+  func isFireable(from marking: Marking<Arc.Place, PlaceContent>) -> Bool
+  func fire(from marking: Marking<Arc.Place, PlaceContent>) -> Marking<Arc.Place, PlaceContent>?
+
+}
+
+// ---------------------------------------------------------------------------
+
+public protocol ArcProtocol: Hashable {
+
+  associatedtype Place: CaseIterable & Hashable
+  associatedtype Label
+
+  var place: Place { get }
+  var label: Label { get }
 
 }

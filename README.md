@@ -61,19 +61,20 @@ Those are one of the most simple variant of Petri nets.
 You can create a P/T-net as follows:
 
 ```swift
-let p0 = PTPlace(named: "p0")
-let p1 = PTPlace(named: "p1")
+enum Place {
+  case p0, p1
+}
 
-let t0 = PTTransition(
+let t0 = PTTransition<Place>(
   named         : "t0",
-  preconditions : [PTArc(place: p0)],
-  postconditions: [PTArc(place: p1)])
-let t1 = PTTransition(
+  preconditions : [PTArc(place: .p0)],
+  postconditions: [PTArc(place: .p1)])
+let t1 = PTTransition<Place>(
   named         : "t1",
-  preconditions : [PTArc(place: p1)],
-  postconditions: [PTArc(place: p0)])
+  preconditions : [PTArc(place: .p1)],
+  postconditions: [PTArc(place: .p0)])
 
-let pn = PTNet(places: [p0, p1], transitions: [t0, t1])
+let pn = PTNet(transitions: [t0, t1])
 ```
 
 The above code create a P/T-net `pn` composed of two places and two transitions.
@@ -83,19 +84,19 @@ The above code create a P/T-net `pn` composed of two places and two transitions.
 You can simulate the firing of a transition as follows:
 
 ```swift
-let m = t0.fire(from: [p0: 1, p1: 1])
+let m = t0.fire(from: [.p0: 1, .p1: 1])
 ```
 
 The above code assigns to `m` the marking obtained after firing the transition `t0`
-from the marking `[p0: 1, p1: 1]` (i.e. one token in each place).
-Note that the method `fire(from:)` of the `Transition` protocols returns an optional.
+from the marking `[.p0: 1, .p1: 1]` (i.e. one token in each place).
+Note that the method `fire(from:)` of the `TransitionProtocol` protocols returns an optional.
 That's because if the transition is not fireable from the given marking,
 the method should return `nil`.
 
 You can also simulate the execution of a P/T-net from a given initial marking:
 
 ```swift
-let m = pn.simulate(steps: 4, from: [p0: 1, p1: 0])
+let m = pn.simulate(steps: 4, from: [.p0: 1, .p1: 0])
 ```
 
 The above code simulate 4 steps of execution,
@@ -113,8 +114,8 @@ import Foundation
 
 // ...
 
-try pn.saveAsDot(to: URL(fileURLWithPath: "pn.dot"), withMarking: [p0: 1, p1: 2])
+try pn.saveAsDot(to: URL(fileURLWithPath: "pn.dot"), withMarking: [.p0: 1, .p1: 2])
 ```
 
-The above code will output the P/T-net `pn` with marking `[p0: 1, p1: 2]`
+The above code will output the P/T-net `pn` with marking `[.p0: 1, .p1: 2]`
 to a file named `pn.dot`.

@@ -1,14 +1,8 @@
-public typealias PTMarking = [PTPlace: UInt]
+public struct PTNet<Place>: PetriNet where Place: CaseIterable & Hashable {
 
-public struct PTNet: PetriNet {
+  public let transitions: Set<PTTransition<Place>>
 
-  public typealias MarkingType = PTMarking
-
-  public let places: Set<PTPlace>
-  public let transitions: Set<PTTransition>
-
-  public init(places: Set<PTPlace>, transitions: Set<PTTransition>) {
-    self.places      = places
+  public init(transitions: Set<PTTransition<Place>>) {
     self.transitions = transitions
   }
 
@@ -48,33 +42,36 @@ extension PTPlace: CustomStringConvertible {
 
 // ---------------------------------------------------------------------------
 
-public struct PTTransition: Transition {
+public struct PTTransition<Place>: TransitionProtocol where Place: CaseIterable & Hashable {
 
-  public let name          : String
-  public let preconditions : Set<PTArc>
-  public let postconditions: Set<PTArc>
+  public typealias PlaceContent = UInt
+  public typealias Arc = PTArc<Place>
 
-  public init(named name: String, preconditions: Set<PTArc>, postconditions: Set<PTArc>) {
+  public let name: String
+  public let preconditions: Set<Arc>
+  public let postconditions: Set<Arc>
+
+  public init(named name: String, preconditions: Set<Arc>, postconditions: Set<Arc>) {
     self.name           = name
     self.preconditions  = preconditions
     self.postconditions = postconditions
   }
 
-  public func isFireable(from marking: PTMarking) -> Bool {
-    return !(self.preconditions.contains { arc in marking[arc.place]! < arc.tokens })
+  public func isFireable(from marking: MarkingType) -> Bool {
+    return preconditions.allSatisfy { arc in marking[arc.place] >= arc.label }
   }
 
-  public func fire(from marking: PTMarking) -> PTMarking? {
+  public func fire(from marking: MarkingType) -> MarkingType? {
     guard self.isFireable(from: marking) else {
       return nil
     }
 
     var result = marking
     for arc in self.preconditions {
-      result[arc.place]! -= arc.tokens
+      result[arc.place] -= arc.label
     }
     for arc in self.postconditions {
-      result[arc.place]! += arc.tokens
+      result[arc.place] += arc.label
     }
 
     return result
@@ -92,14 +89,14 @@ extension PTTransition: CustomStringConvertible {
 
 // ---------------------------------------------------------------------------
 
-public struct PTArc: Hashable {
+public struct PTArc<Place>: ArcProtocol where Place: CaseIterable & Hashable {
 
-  public let place : PTPlace
-  public let tokens: UInt
+  public let place: Place
+  public let label: UInt
 
-  public init(place: PTPlace, tokens: UInt = 1) {
-    self.place  = place
-    self.tokens = tokens
+  public init(place: Place, label: UInt = 1) {
+    self.place = place
+    self.label = label
   }
 
 }
