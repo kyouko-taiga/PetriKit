@@ -99,10 +99,11 @@ public struct PTTransition: Transition {
     }
 
     public var hashValue: Int {
-        return hash(
-            self.preconditions.hashValue,
-            self.postconditions.hashValue,
-            self.name.hashValue)
+        var hasher = Hasher()
+        hasher.combine(self.preconditions.hashValue)
+        hasher.combine(self.postconditions.hashValue)
+        hasher.combine(self.name.hashValue)
+        return hasher.finalize()
     }
 
     public static func ==(lhs: PTTransition, rhs: PTTransition) -> Bool {
@@ -138,7 +139,10 @@ public struct PTArc {
 extension PTArc: Hashable {
 
     public var hashValue: Int {
-        return hash(self.place.hashValue, self.tokens.hashValue)
+      var hasher = Hasher()
+      hasher.combine(self.place.hashValue)
+      hasher.combine(self.tokens.hashValue)
+      return hasher.finalize()
     }
 
     public static func ==(lhs: PTArc, rhs: PTArc) -> Bool {
