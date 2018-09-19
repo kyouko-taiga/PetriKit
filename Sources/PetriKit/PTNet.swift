@@ -98,19 +98,6 @@ public struct PTTransition: Transition {
         return result
     }
 
-    public var hashValue: Int {
-        return hash(
-            self.preconditions.hashValue,
-            self.postconditions.hashValue,
-            self.name.hashValue)
-    }
-
-    public static func ==(lhs: PTTransition, rhs: PTTransition) -> Bool {
-        return (lhs.preconditions  == rhs.preconditions)  &&
-               (lhs.postconditions == rhs.postconditions) &&
-               (lhs.name           == rhs.name)
-    }
-
 }
 
 extension PTTransition: CustomStringConvertible {
@@ -123,7 +110,7 @@ extension PTTransition: CustomStringConvertible {
 
 // ---------------------------------------------------------------------------
 
-public struct PTArc {
+public struct PTArc: Hashable {
 
     public let place : PTPlace
     public let tokens: UInt
@@ -131,18 +118,6 @@ public struct PTArc {
     public init(place: PTPlace, tokens: UInt = 1) {
         self.place  = place
         self.tokens = tokens
-    }
-
-}
-
-extension PTArc: Hashable {
-
-    public var hashValue: Int {
-        return hash(self.place.hashValue, self.tokens.hashValue)
-    }
-
-    public static func ==(lhs: PTArc, rhs: PTArc) -> Bool {
-        return (lhs.place == rhs.place) && (lhs.tokens == rhs.tokens)
     }
 
 }
