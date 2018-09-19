@@ -20,6 +20,8 @@ You'll have to add PetriKit as a dependency to your application.
 Open the generated file `Package.swift` and edit its content as follows:
 
 ```swift
+// swift-tools-version:4.2
+
 import PackageDescription
 
 let package = Package(
