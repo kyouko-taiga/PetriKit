@@ -81,3 +81,11 @@ extension Marking: Comparable where Value: Comparable {
 
 extension Marking: Hashable where Value: Hashable {
 }
+
+extension Marking: CustomStringConvertible {
+
+  public var description: String {
+    return storage.description
+  }
+
+}
