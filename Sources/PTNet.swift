@@ -139,10 +139,10 @@ public struct PTArc {
 extension PTArc: Hashable {
 
     public var hashValue: Int {
-      var hasher = Hasher()
-      hasher.combine(self.place.hashValue)
-      hasher.combine(self.tokens.hashValue)
-      return hasher.finalize()
+        var hasher = Hasher()
+        hasher.combine(self.place.hashValue)
+        hasher.combine(self.tokens.hashValue)
+        return hasher.finalize()
     }
 
     public static func ==(lhs: PTArc, rhs: PTArc) -> Bool {
