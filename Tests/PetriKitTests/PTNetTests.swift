@@ -54,7 +54,7 @@ class PTNetTests: XCTestCase {
       preconditions : [PTArc(place: Place.p1)],
       postconditions: [PTArc(place: Place.p0)])
 
-    return PTNet(places: [.p0, .p1], transitions: [t0, t1])
+    return PTNet(transitions: [t0, t1])
   }
 
   static var allTests = [

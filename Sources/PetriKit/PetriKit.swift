@@ -6,7 +6,6 @@ public protocol PetriNet {
   typealias PlaceContent = Transition.PlaceContent
   typealias MarkingType = Transition.MarkingType
 
-  var places: Set<Place> { get }
   var transitions: Set<Transition> { get }
 
   func simulate(steps: Int, from: MarkingType) -> MarkingType

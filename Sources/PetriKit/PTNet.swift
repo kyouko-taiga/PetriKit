@@ -1,10 +1,8 @@
 public struct PTNet<Place>: PetriNet where Place: CaseIterable & Hashable {
 
-  public let places: Set<Place>
   public let transitions: Set<PTTransition<Place>>
 
-  public init(places: Set<Place>, transitions: Set<PTTransition<Place>>) {
-    self.places = places
+  public init(transitions: Set<PTTransition<Place>>) {
     self.transitions = transitions
   }
 

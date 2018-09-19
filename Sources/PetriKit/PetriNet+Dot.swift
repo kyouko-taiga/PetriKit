@@ -8,7 +8,7 @@ extension PetriNet {
     // Place subgraph ...
     output += "subgraph place {\n"
     output += "node [shape=circle, width=.5];\n"
-    for place in self.places {
+    for place in Place.allCases {
       var label = ""
       if let tokens = withMarking?[place] {
         label = String(describing: tokens)
