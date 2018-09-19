@@ -11,6 +11,24 @@ public protocol PetriNet {
 
 }
 
+extension PetriNet {
+
+  public func simulate(steps: Int, from marking: MarkingType) -> MarkingType {
+    var m = marking
+
+    for _ in 0 ..< steps {
+      let fireable = self.transitions.filter{ $0.isFireable(from: m) }
+      if fireable.isEmpty {
+        return m
+      }
+      m = Random.choose(from: fireable).fire(from: m)!
+    }
+
+    return m
+  }
+
+}
+
 // ---------------------------------------------------------------------------
 
 public protocol Transition: Hashable {

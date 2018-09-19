@@ -1,4 +1,8 @@
+public typealias PTMarking = [PTPlace: UInt]
+
 public struct PTNet: PetriNet {
+
+  public typealias MarkingType = PTMarking
 
   public let places: Set<PTPlace>
   public let transitions: Set<PTTransition>
@@ -8,23 +12,7 @@ public struct PTNet: PetriNet {
     self.transitions = transitions
   }
 
-  public func simulate(steps: Int, from marking: PTMarking) -> PTMarking {
-    var m = marking
-
-    for _ in 0 ..< steps {
-      let fireable = self.transitions.filter{ $0.isFireable(from: m) }
-      if fireable.isEmpty {
-        return m
-      }
-      m = Random.choose(from: fireable).fire(from: m)!
-    }
-
-    return m
-  }
-
 }
-
-public typealias PTMarking = [PTPlace: UInt]
 
 // ---------------------------------------------------------------------------
 
@@ -51,7 +39,7 @@ extension PTPlace: Hashable {
 }
 
 extension PTPlace: CustomStringConvertible {
-  
+
   public var description: String {
     return self.name
   }
