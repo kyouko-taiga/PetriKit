@@ -2,14 +2,13 @@
 
 import PackageDescription
 
-
 let package = Package(
     name: "PetriKit",
     products: [
-      .library(name: "PetriKit", type: .static, targets: ["PetriKit"]),
+      .library(name: "PetriKit", targets: ["PetriKit"]),
     ],
     targets: [
       .target(name: "PetriKit"),
-      .testTarget(name: "PetriKitTests"),
+      .testTarget(name: "PetriKitTests", dependencies: ["PetriKit"]),
     ]
   )
