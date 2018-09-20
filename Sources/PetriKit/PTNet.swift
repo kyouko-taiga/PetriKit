@@ -46,6 +46,7 @@ public struct PTTransition<Place>: TransitionProtocol where Place: CaseIterable 
 
   public typealias PlaceContent = UInt
   public typealias Arc = PTArc<Place>
+  public typealias FireResult = Marking<Place, PlaceContent>?
 
   public let name: String
   public let preconditions: Set<Arc>

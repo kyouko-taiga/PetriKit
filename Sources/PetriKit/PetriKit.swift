@@ -12,7 +12,7 @@ public protocol PetriNet {
 
 }
 
-extension PetriNet {
+extension PetriNet where Transition.FireResult == MarkingType? {
 
   public func simulate(steps: Int, from marking: MarkingType) -> MarkingType {
     var m = marking
@@ -36,6 +36,7 @@ public protocol TransitionProtocol: Hashable {
 
   associatedtype Arc: ArcProtocol
   associatedtype PlaceContent
+  associatedtype FireResult
 
   typealias Place = Arc.Place
   typealias MarkingType = Marking<Place, PlaceContent>
@@ -44,7 +45,7 @@ public protocol TransitionProtocol: Hashable {
   var postconditions: Set<Arc> { get }
 
   func isFireable(from marking: Marking<Arc.Place, PlaceContent>) -> Bool
-  func fire(from marking: Marking<Arc.Place, PlaceContent>) -> Marking<Arc.Place, PlaceContent>?
+  func fire(from marking: Marking<Arc.Place, PlaceContent>) -> FireResult
 
 }
 
